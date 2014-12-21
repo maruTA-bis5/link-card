@@ -40,6 +40,6 @@ class Net_Bis5_LinkCard extends PluginCore {
 	}
 
 	public function actionHeadRegJsGlobal() {
-		echo '<script type="text/javascript">link_card_glb_url="'.bloginfo('wpurl').'";</script>';
+		echo '<script type="text/javascript">link_card_glb_url="'.home_url().'";</script>';
 	}
 }

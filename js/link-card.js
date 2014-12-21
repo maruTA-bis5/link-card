@@ -35,7 +35,7 @@ function createCard($anchor) {
 	var href = $anchor.attr("href");
 	jQuery.ajax({
 		type:	"GET",
-		url:	link_card_glb_url+"wp-content/plugins/link-card/ajax.php?tg="+href,
+		url:	link_card_glb_url+"/wp-content/plugins/link-card/ajax.php?tg="+href,
 		cache:	true,
 		dataType: "json",
 		success: function(data, status, xhr) {
