@@ -35,24 +35,22 @@ function createCard($anchor) {
 	var href = $anchor.attr("href");
 	jQuery.ajax({
 		type:	"GET",
-		url	:	link_card_glb_url+"wp-content/plugins/link-card/ajax.php?tg="+href,
+		url:	link_card_glb_url+"wp-content/plugins/link-card/ajax.php?tg="+href,
 		cache:	true,
-		dataType: "text",
+		dataType: "json",
 		success: function(data, status, xhr) {
-			// TODO 
-			// var favicon = ???
-			var card = createCardByTitle(data);
+			var card = createCardByJson(data);
 			insertCard($anchor, card);
 		}
 	});
 }
 
-function createCardByTitle(title) {
-	if (title == undefined || title == 'undefined' || title == '') {
-		return '';
-	} else {
-		return '<div class="link-card">' + title + '</div>';
-	}
+function createCardByJson(data) {
+	var title = data.title;
+	var desc = data.description;
+	return '<div class="link-card">'
+		+'<span class="link-card-title">'+title+'</span>' + '<br />'
+		+'<span class="link-card-desc">'+desc+'</div>' + '</div>';
 }
 
 function insertCard($anchor, card) {

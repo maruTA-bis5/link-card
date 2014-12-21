@@ -22,3 +22,11 @@ div.link-card {
 	margin-top: 1em;
 	padding: 0.5em;
 }
+
+div.link-card > span.link-card-title {
+	font-weight: bold;
+}
+
+div.link-card > span.link-card-desc {
+	font-size: 0.75em;
+}

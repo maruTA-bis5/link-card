@@ -14,7 +14,7 @@
  *     See the License for the specific language governing permissions and
  *     limitations under the License.
  */
-header('Content-Type: text/plain');
+header('Content-Type: application/javascript');
 
 if (isset($_GET['tg'])) {
 	$href = $_GET['tg'];
@@ -22,8 +22,36 @@ if (isset($_GET['tg'])) {
 		$content = file_get_contents($href);
 		$doc = new DOMDocument();
 		$doc->loadHTML($content);
-		$titleTag = $doc->getElementsByTagName('title');
-		$title = $titleTag->item(0)->nodeValue;
-		echo htmlspecialchars($title);
+		$json = parse($doc);
+		echo $json;
 	}
+}
+
+function parse($doc) {
+	$titleTag = $doc->getElementsByTagName('title');
+	$title = $titleTag->item(0)->nodeValue;
+
+	// find description meta data
+	$metaTag = $doc->getElementsByTagName('meta');
+	$desc = NULL;
+	foreach ($metaTag as $meta) {
+		if (strtolower($meta->getAttribute('name')) == 'description') {
+			$desc = $meta->getAttribute('content');
+			break;
+		}
+	}
+
+	// kill null value
+	if ($title === NULL) {
+		$title = '';
+	}
+	if ($desc === NULL) {
+		$desc = '';
+	}
+
+	// convert to json
+	$toJson = array();
+	$toJson['title'] = $title;
+	$toJson['description'] = $desc;
+	return json_encode($toJson);
 }
