@@ -16,6 +16,9 @@
  */
 header('Content-Type: application/javascript');
 
+// refs #5: 気休め
+error_reporting(E_ERROR);
+
 if (isset($_GET['tg'])) {
 	$href = $_GET['tg'];
 	if (preg_match('/^https?:/', $href)) {
